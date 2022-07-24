@@ -5,10 +5,10 @@ import "./App.css";
 function App() {
   const [formData, setFormData] = useState({
     name: "",
-    age: 0,
+    age: null,
     country: "",
     position: "",
-    wage: 0,
+    wage: null,
   });
 
   function handleChange(e) {
@@ -26,10 +26,10 @@ function App() {
       return {
         ...prevData,
         name: "",
-        age: 0,
+        age: null,
         country: "",
         position: "",
-        wage: 0,
+        wage: null,
       };
     });
   }
