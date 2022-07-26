@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 
 import "./App.css";
@@ -12,9 +12,17 @@ function App() {
     wage: "",
   });
 
+  const [employeeList, setEmployeeList] = useState([]);
+
   function addEmployee() {
     Axios.post("http://localhost:3000/create", { formData }).then(() => {
       console.log("Success");
+    });
+  }
+
+  function getEmployees() {
+    Axios.get("http://localhost:3000/employees").then((response) => {
+      setEmployeeList(response.data);
     });
   }
 
@@ -80,8 +88,22 @@ function App() {
           onChange={handleChange}
         />
         <button onClick={addEmployee}>Add employee</button>
-        <button>Show Employee</button>
+        <button onClick={getEmployees}>Show Employee</button>
+        {employeeList.map((emp) => {})}
       </form>
+      <div>
+        {employeeList.map((emp) => {
+          return (
+            <div key={emp.id}>
+              <h3>{emp.name}</h3>
+              <p>{emp.country}</p>
+              <p>{emp.age}</p>
+              <p>{emp.position}</p>
+              <p>{emp.wage}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
