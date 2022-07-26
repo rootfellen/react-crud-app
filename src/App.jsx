@@ -1,15 +1,22 @@
 import { useState } from "react";
+import Axios from "axios";
 
 import "./App.css";
 
 function App() {
   const [formData, setFormData] = useState({
     name: "",
-    age: null,
+    age: "",
     country: "",
     position: "",
-    wage: null,
+    wage: "",
   });
+
+  function addEmployee() {
+    Axios.post("http://localhost:3000/create", { formData }).then(() => {
+      console.log("Success");
+    });
+  }
 
   function handleChange(e) {
     setFormData((prevData) => {
@@ -26,10 +33,10 @@ function App() {
       return {
         ...prevData,
         name: "",
-        age: null,
+        age: "",
         country: "",
         position: "",
-        wage: null,
+        wage: "",
       };
     });
   }
@@ -72,7 +79,8 @@ function App() {
           value={formData.wage}
           onChange={handleChange}
         />
-        <button>Add employee</button>
+        <button onClick={addEmployee}>Add employee</button>
+        <button>Show Employee</button>
       </form>
     </div>
   );
